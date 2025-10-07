@@ -13,6 +13,11 @@ use Illuminate\Support\Facades\Broadcast;
 |
 */
 
+// apakah user yang login punya id sama dengan {id} channel yang diminta?
+
+// Kalau benar → return true → user boleh join channel.
+// Kalau salah → return false → user ditolak.
+
 Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
 });
