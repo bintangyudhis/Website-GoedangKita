@@ -6,9 +6,9 @@
     <div class="wrap-login100 p-6">
         <div class="d-flex justify-content-center align-items-center">
             @if($web->web_logo == '' || $web->web_logo == 'default.png')
-            <img src="{{url('/assets/default/web/default.png')}}" height="75px" class="" alt="logo">
+            <img src="{{url('/assets/default/web/default.png')}}" height="150px" class="" alt="logo">
             @else
-            <img src="{{asset('storage/web/' . $web->web_logo)}}" height="75px" class="" alt="logo">
+            <img src="{{asset('storage/web/' . $web->web_logo)}}" height="150px" class="" alt="logo">
             @endif
         </div>
         <div class="text-center">

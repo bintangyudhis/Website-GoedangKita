@@ -180,4 +180,4 @@ Route::group(['middleware' => 'userlogin'], function () {
             Route::resource('/admin/web', \App\Http\Controllers\Master\WebController::class);
         });
     });
-});
+}); 
