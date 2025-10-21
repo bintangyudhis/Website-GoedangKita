@@ -23,6 +23,7 @@ class AksesController extends Controller
         return view('Master.Akses.index', $data);
     }
 
+    //Memberikan satu izin spesifik. Fungsi ini biasanya dipanggil oleh AJAX ketika admin mencentang sebuah checkbox di halaman hak akses.
     public function addAkses($idmenu, $idrole, $type, $akses)
     {
         if ($type == 'menu') {
@@ -54,6 +55,8 @@ class AksesController extends Controller
         return redirect(url('admin/akses/' . $idrole))->with($data);
     }
 
+
+    // Mencabut satu izin spesifik. Fungsi ini dipanggil ketika admin menghilangkan centang pada sebuah checkbox.
     public function removeAkses($idmenu, $idrole, $type, $akses)
     {
         if ($type == 'menu') {
@@ -140,7 +143,7 @@ class AksesController extends Controller
                 'updated_at' => now()
             ];
         }
-        
+
         for ($i = 1; $i <= 6; $i++) {
             $object3[] = [
                 'othermenu_id' => $i,
