@@ -15,6 +15,14 @@ class JenisBarangController extends Controller
     public function index()
     {
         $data["title"] = "Jenis";
+
+        // Memulai query dari tabel tbl_akses, yang berisi semua catatan hak akses.
+        // leftJoin('tbl_submenu', ...) Menggabungkan tabel tbl_akses dengan tbl_submenu. Ini
+        // dilakukan agar kita bisa mencari berdasarkan nama menu (submenu_judul), bukan hanya ID-nya.
+        // ->where(array(...)) Ini adalah bagian filter atau kondisi. Kode ini mencari baris yang memenuhi semua kriteria berikut:
+        // 'tbl_akses.role_id' => Session::get('user')->role_id: role_id harus cocok dengan role pengguna yang sedang login.
+        // 'tbl_akses.akses_type' => 'create': Tipe aksesnya harus "create" (membuat/menambah).
+        // ->count() Setelah difilter, perintah ini akan menghitung berapa jumlah baris yang tersisa. Hasilnya akan berupa angka (biasanya 1 jika punya akses, atau 0 jika tidak).
         $data["hakTambah"] = AksesModel::leftJoin('tbl_submenu', 'tbl_submenu.submenu_id', '=', 'tbl_akses.submenu_id')->where(array('tbl_akses.role_id' => Session::get('user')->role_id, 'tbl_submenu.submenu_judul' => 'Jenis', 'tbl_akses.akses_type' => 'create'))->count();
         return view('Admin.JenisBarang.index', $data);
     }
@@ -97,7 +105,7 @@ class JenisBarangController extends Controller
 
     public function proses_hapus(Request $request, JenisBarangModel $jenisbarang)
     {
-        
+
         //delete
         $jenisbarang->delete();
 

@@ -22,6 +22,7 @@ class BarangmasukController extends Controller
         return view('Admin.BarangMasuk.index', $data);
     }
 
+    // Menyediakan data untuk tabel dinamis Yajra DataTables melalui permintaan AJAX.
     public function show(Request $request)
     {
         if ($request->ajax()) {

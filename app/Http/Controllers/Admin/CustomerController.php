@@ -25,7 +25,7 @@ class CustomerController extends Controller
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('notelp', function ($row) {
-                    $notelp = $row->customer_notelp == '' ? '-' : $row->customer_notelp;
+                    $notelp = $row->customer_notelp == '' ? '-' : $row->customer_notelp; // Apakah nomor telepon customer di baris ini kosong? Jika ya, maka isi variabel $notelp dengan tanda strip
 
                     return $notelp;
                 })
@@ -102,7 +102,7 @@ class CustomerController extends Controller
         return response()->json(['success' => 'Berhasil']);
     }
 
-    
+
     public function proses_hapus(Request $request, CustomerModel $customer)
     {
         //delete

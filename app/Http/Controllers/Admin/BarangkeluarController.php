@@ -81,9 +81,9 @@ class BarangkeluarController extends Controller
         }
     }
 
+    // Menyimpan catatan transaksi barang keluar yang baru.
     public function proses_tambah(Request $request)
     {
-
         //insert data
         BarangkeluarModel::create([
             'bk_tanggal' => $request->tglkeluar,
@@ -93,12 +93,13 @@ class BarangkeluarController extends Controller
             'bk_jumlah'   => $request->jml,
         ]);
 
-        return response()->json(['success' => 'Berhasil']);
+        return response()->json(['success' => 'Berhasil']); // Mengirimkan respon sukses kembali ke browser.
     }
 
+    // Memperbarui data transaksi barang keluar yang sudah ada.
     public function proses_ubah(Request $request, BarangkeluarModel $barangkeluar)
     {
-        //update data
+        //update data Memperbarui data di database dengan informasi baru dari form edit.
         $barangkeluar->update([
             'bk_tanggal' => $request->tglkeluar,
             'bk_kode' => $request->bkkode,

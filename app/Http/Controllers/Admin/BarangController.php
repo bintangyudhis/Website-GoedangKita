@@ -19,14 +19,26 @@ class BarangController extends Controller
 {
     public function index()
     {
-        $data["title"] = "Barang";
+        $data["title"] = "Barang"; // judul halaman web
+
+        // dibawah ini adalah pengecekan hak akses. Memeriksa ke database apakah pengguna yang sedang login (Session::get('user')->role_id)
+        // memiliki izin untuk menambah (create) data di menu "Barang". Hasilnya (berupa angka 0 atau lebih) disimpan
+        // dalam variabel $data["hakTambah"]. Variabel ini untuk nanti digunakan menampilkan atau menyembunyikan tombol "Tambah Barang".
         $data["hakTambah"] = AksesModel::leftJoin('tbl_submenu', 'tbl_submenu.submenu_id', '=', 'tbl_akses.submenu_id')->where(array('tbl_akses.role_id' => Session::get('user')->role_id, 'tbl_submenu.submenu_judul' => 'Barang', 'tbl_akses.akses_type' => 'create'))->count();
+
+        // Mengambil semua data dari tabel JenisBarang, Satuan, dan Merk.
+        // Data ini digunakan untuk mengisi pilihan dropdown di form tambah atau edit barang.
         $data["jenisbarang"] =  JenisBarangModel::orderBy('jenisbarang_id', 'DESC')->get();
+
+        // sama dengan yg atas
         $data["satuan"] =  SatuanModel::orderBy('satuan_id', 'DESC')->get();
         $data["merk"] =  MerkModel::orderBy('merk_id', 'DESC')->get();
+
+        // Mengirim semua data yang sudah disiapkan
+        // ke tampilan resources/views/Admin/Barang/index.blade.php untuk ditampilkan ke pengguna.
         return view('Admin.Barang.index', $data);
     }
-
+    //  Mengambil data detail dari satu barang spesifik berdasarkan kodenya.
     public function getbarang($id)
     {
         $data = BarangModel::leftJoin('tbl_jenisbarang', 'tbl_jenisbarang.jenisbarang_id', '=', 'tbl_barang.jenisbarang_id')->leftJoin('tbl_satuan', 'tbl_satuan.satuan_id', '=', 'tbl_barang.satuan_id')->leftJoin('tbl_merk', 'tbl_merk.merk_id', '=', 'tbl_barang.merk_id')->where('tbl_barang.barang_kode', '=', $id)->get();
@@ -94,7 +106,7 @@ class BarangController extends Controller
                     }else{
                         $result = '<span class="text-danger">'.$totalstok.'</span>';
                     }
-                    
+
 
                     return $result;
                 })
@@ -200,7 +212,7 @@ class BarangController extends Controller
                     }else{
                         $result = '<span class="text-danger">'.$totalstok.'</span>';
                     }
-                    
+
 
                     return $result;
                 })
