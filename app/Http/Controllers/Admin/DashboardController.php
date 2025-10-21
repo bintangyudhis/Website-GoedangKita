@@ -18,8 +18,8 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $data["title"] = "Dashboard";
-        $data["jenis"] = JenisBarangModel::orderBy('jenisbarang_id', 'DESC')->count();
+        $data["title"] = "Dashboard"; // judul halaman
+        $data["jenis"] = JenisBarangModel::orderBy('jenisbarang_id', 'DESC')->count(); //Menghubungi JenisBarangModel dan bertanya, "Ada berapa total jenis barang di database?"
         $data["satuan"] = SatuanModel::orderBy('satuan_id', 'DESC')->count();
         $data["merk"] = MerkModel::orderBy('merk_id', 'DESC')->count();
         $data["barang"] = BarangModel::leftJoin('tbl_jenisbarang', 'tbl_jenisbarang.jenisbarang_id', '=', 'tbl_barang.jenisbarang_id')->leftJoin('tbl_satuan', 'tbl_satuan.satuan_id', '=', 'tbl_barang.satuan_id')->leftJoin('tbl_merk', 'tbl_merk.merk_id', '=', 'tbl_barang.merk_id')->orderBy('barang_id', 'DESC')->count();
@@ -27,6 +27,14 @@ class DashboardController extends Controller
         $data["bm"] = BarangmasukModel::leftJoin('tbl_barang', 'tbl_barang.barang_kode', '=', 'tbl_barangmasuk.barang_kode')->leftJoin('tbl_customer', 'tbl_customer.customer_id', '=', 'tbl_barangmasuk.customer_id')->orderBy('bm_id', 'DESC')->count();
         $data["bk"] = BarangkeluarModel::leftJoin('tbl_barang', 'tbl_barang.barang_kode', '=', 'tbl_barangkeluar.barang_kode')->orderBy('bk_id', 'DESC')->count();
         $data["user"] = UserModel::leftJoin('tbl_role', 'tbl_role.role_id', '=', 'tbl_user.role_id')->select()->orderBy('user_id', 'DESC')->count();
+
+        // tambahan untuk menampilkan stok barang
+        $stokAwal = BarangModel::sum('barang_stok');
+        $totalMasuk = BarangmasukModel::sum('bm_jumlah');
+        $totalKeluar = BarangkeluarModel::sum('bk_jumlah');
+        $data["total_stok"] = $stokAwal + $totalMasuk - $totalKeluar;
+
+
         return view('Admin.Dashboard.index', $data);
     }
 }
