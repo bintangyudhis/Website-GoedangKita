@@ -104,6 +104,23 @@ class UserController extends Controller
     public function update(Request $request, UserModel $user)
     {
 
+        // TAMBAHKAN DUA PENGECEKAN
+
+        // 1. Mencegah user lain dipromosikan menjadi Super Admin
+        if ($user->role_id != 1 && $request->roleU == 1) {
+            Session::flash('status', 'error');
+            Session::flash('msg', 'Tidak dapat mengubah user lain menjadi Super Admin!');
+            return redirect()->route('user.index');
+        }
+
+        // 2. Mencegah Super Admin diturunkan rolenya
+        if ($user->role_id == 1 && $request->roleU != 1) {
+            Session::flash('status', 'error');
+            Session::flash('msg', 'Role Super Admin tidak boleh diubah!');
+            return redirect()->route('user.index');
+        }
+        // AKHIR PENGECEKAN
+
         //check if image is uploaded
         if ($request->hasFile('photoU')) {
 
@@ -225,6 +242,13 @@ class UserController extends Controller
     public function hapus(Request $request)
     {
         $detail = UserModel::findOrFail($request->iduser);
+
+        // biar tidak bisa hapus super admin
+        if ($detail->role_id == 1) {
+            Session::flash('status', 'error');
+            Session::flash('msg', 'Super Admin tidak dapat dihapus');
+            return redirect()->route('user.index');
+        }
 
         //delete image
         Storage::delete('public/users/' . $detail->user_foto);
