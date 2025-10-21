@@ -30,12 +30,19 @@ class RoleController extends Controller
                         "role_desc" => trim(preg_replace('/[^A-Za-z0-9-]+/', '_', $row->role_desc))
                     );
                     $button = '';
-                    $button .= '
-                    <div class="g-2">
-                        <a class="btn modal-effect text-primary btn-sm" data-bs-effect="effect-super-scaled" data-bs-toggle="modal" href="#Umodaldemo8" data-bs-toggle="tooltip" data-bs-original-title="Edit" onclick=update('.json_encode($array).')><span class="fe fe-edit text-success fs-14"></span></a>
-                        <a class="btn modal-effect text-danger btn-sm" data-bs-effect="effect-super-scaled" data-bs-toggle="modal" href="#Hmodaldemo8" onclick=hapus('.json_encode($array).')><span class="fe fe-trash-2 fs-14"></span></a>
-                    </div>
-                    ';
+
+                    // perubahannya dibungkus if
+                    if ($row->role_id != 1) {
+                        $button .= '
+                        <div class="g-2">
+                            <a class="btn modal-effect text-primary btn-sm" data-bs-effect="effect-super-scaled" data-bs-toggle="modal" href="#Umodaldemo8" data-bs-toggle="tooltip" data-bs-original-title="Edit" onclick=update(' . json_encode($array) . ')><span class="fe fe-edit text-success fs-14"></span></a>
+                            <a class="btn modal-effect text-danger btn-sm" data-bs-effect="effect-super-scaled" data-bs-toggle="modal" href="#Hmodaldemo8" onclick=hapus(' . json_encode($array) . ')><span class="fe fe-trash-2 fs-14"></span></a>
+                        </div>
+                        ';
+                    } else {
+                        $button = '<span class="badge bg-success">Locked</span>'; // Tampilkan badge
+                    }
+
                     return $button;
                 })
                 ->rawColumns(['action'])->make(true);
@@ -63,6 +70,13 @@ class RoleController extends Controller
 
     public function update(Request $request, RoleModel $role)
     {
+        // TAMBAHKAN PENGECEKAN INI DI AWAL
+        if ($role->role_id != 1) {
+            Session::flash('status', 'error');
+            Session::flash('msg', 'Role Super Admin tidak boleh diubah!');
+            return redirect()->route('role.index');
+        } // end pengecekan
+
         $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->utitle)));
 
         //update
@@ -82,6 +96,14 @@ class RoleController extends Controller
 
     public function hapus(Request $request)
     {
+
+        // TAMBAHKAN PENGECEKAN INI DI AWAL
+        if ($request->idrole != 1) {
+            Session::flash('status', 'error');
+            Session::flash('msg', 'Role Super Admin tidak boleh dihapus!');
+            return redirect()->route('role.index');
+        } // end pengecekan
+
         //delete
         RoleModel::findOrFail($request->idrole)->delete();
         AksesModel::where('role_id', '=', $request->idrole)->delete();
