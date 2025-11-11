@@ -71,7 +71,7 @@ class RoleController extends Controller
     public function update(Request $request, RoleModel $role)
     {
         // TAMBAHKAN PENGECEKAN INI DI AWAL
-        if ($role->role_id != 1) {
+        if ($role->role_id == 1) {
             Session::flash('status', 'error');
             Session::flash('msg', 'Role Super Admin tidak boleh diubah!');
             return redirect()->route('role.index');
@@ -96,9 +96,8 @@ class RoleController extends Controller
 
     public function hapus(Request $request)
     {
-
         // TAMBAHKAN PENGECEKAN INI DI AWAL
-        if ($request->idrole != 1) {
+        if ($request->idrole == 1) {
             Session::flash('status', 'error');
             Session::flash('msg', 'Role Super Admin tidak boleh dihapus!');
             return redirect()->route('role.index');

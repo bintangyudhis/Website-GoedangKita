@@ -28,6 +28,16 @@ class UsersTableSeeder extends Seeder
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
             ],
             [
+                'role_id' => 1,
+                'user_nmlengkap' => 'Bintang Yudhistira',
+                'user_nama' => 'bintangyudhis',
+                'user_email' => 'superadmin@gmail.com',
+                'user_foto' => 'undraw_profile.svg',
+                'user_password' => md5('12345678'),
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+            ],
+            [
                 'role_id' => 2,
                 'user_nmlengkap' => 'Administrator',
                 'user_nama' => 'admin',

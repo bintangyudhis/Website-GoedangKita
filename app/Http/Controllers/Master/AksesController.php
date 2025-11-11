@@ -17,7 +17,7 @@ class AksesController extends Controller
         $data["title"] = "Akses";
         $data["roleid"] = $role == 'role' ? '' : $role;
         $data["detailrole"] = $role == 'role' ? '' : RoleModel::where('role_id', '=', $role)->first();
-        $data["role"] = RoleModel::latest()->get();
+        $data["role"] = RoleModel::where('role_id', '!=', 1)->latest()->get(); // tidak mengambil super admin (di dropwdown tidak ada superadmin)
         $data["menu"] = MenuModel::where('menu_type', '=', '1')->orderBy('menu_sort', 'ASC')->get();
         $data["menusub"] = MenuModel::where('menu_type', '=', '2')->orderBy('menu_sort', 'ASC')->get();
         return view('Master.Akses.index', $data);
@@ -81,7 +81,7 @@ class AksesController extends Controller
         $object3 = [];
 
         $menu = MenuModel::orderBy('menu_sort', 'ASC')->get();
-        foreach($menu as $m){
+        foreach ($menu as $m) {
             $object1[] = [
                 'menu_id' => $m->menu_id,
                 'role_id' => $idrole,
@@ -113,7 +113,7 @@ class AksesController extends Controller
         }
 
         $submenu = SubmenuModel::orderBy('submenu_sort', 'ASC')->get();
-        foreach($submenu as $sb){
+        foreach ($submenu as $sb) {
             $object2[] = [
                 'submenu_id' => $sb->submenu_id,
                 'role_id' => $idrole,

@@ -16,7 +16,7 @@ class UserController extends Controller
     public function index()
     {
         $data["title"] = "User";
-        $data["role"] = RoleModel::latest()->get();
+        $data["role"] = RoleModel::where('role_id', '!=', 1)->latest()->get(); // tidak mengambil role super admin
         return view('Master.User.index', $data);
     }
 
@@ -71,6 +71,13 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
+        // Validasi agar memastikan itu bukan menambahkan user admin
+        if ($request->role == 1) {
+            Session::flash('status', 'error');
+            Session::flash('msg', 'Tidak dapat menambahkan Super Admin baru!');
+            return redirect()->route('user.index');
+        }
+
         $img = "";
 
         //upload image

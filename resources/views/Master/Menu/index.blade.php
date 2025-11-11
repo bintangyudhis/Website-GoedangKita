@@ -25,7 +25,7 @@ use App\Models\Admin\SubmenuModel;
             <div class="card-header justify-content-between">
                 <h3 class="card-title">List Menu</h3>
                 <div>
-                    <a class="modal-effect btn btn-primary-light" data-bs-effect="effect-super-scaled" data-bs-toggle="modal" href="#modaldemo8">Tambah Data <i class="fe fe-plus"></i></a>
+                    {{-- <a class="modal-effect btn btn-primary-light" data-bs-effect="effect-super-scaled" data-bs-toggle="modal" href="#modaldemo8">Tambah Data <i class="fe fe-plus"></i></a> --}}
                 </div>
             </div>
             <div class="card-body p-0">
@@ -81,7 +81,7 @@ use App\Models\Admin\SubmenuModel;
                                         @elseif($d->menu_type == 2)
                                         <a class="btn modal-effect text-primary btn-sm" data-bs-effect="effect-super-scaled" data-bs-toggle="modal" href="#Umodaldemo8" data-bs-toggle="tooltip" data-bs-original-title="Edit" onclick="updatewithsub({{$d}},{{$submenu}})"><span class="fe fe-edit text-success fs-14"></span></a>
                                         @endif
-                                        <a class="btn modal-effect text-danger btn-sm" data-bs-effect="effect-super-scaled" data-bs-toggle="modal" href="#Hmodaldemo8" onclick="hapus({{$d}})"><span class="fe fe-trash-2 fs-14"></span></a>
+                                        {{-- <a class="btn modal-effect text-danger btn-sm" data-bs-effect="effect-super-scaled" data-bs-toggle="modal" href="#Hmodaldemo8" onclick="hapus({{$d}})"><span class="fe fe-trash-2 fs-14"></span></a> --}}
                                     </div>
                                 </td>
                             </tr>
