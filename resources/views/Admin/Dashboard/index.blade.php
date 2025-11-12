@@ -130,7 +130,6 @@
                         </div>
                         <div class="ms-auto"> <i class="fe fe-user text-white fs-40 me-2 mt-2"></i>
                         </div>
-                        S
                     </div>
                 </div>
             </div>
@@ -143,7 +142,7 @@
                     <div class="d-flex">
                         <div class="text-white">
                             <h2 class="mb-0 number-font">{{ $total_stok }}</h2>
-                            S                       <p class="text-white mb-0">Total Stok Barang</p>
+                            <p class="text-white mb-0">Total Stok Barang</p>
                         </div>
                         <div class="ms-auto"> <i class="fe fe-package text-white fs-40 me-2 mt-2"></i>
                         </div>
