@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use Carbon\Carbon;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -25,7 +24,7 @@ class UsersTableSeeder extends Seeder
                 'user_foto' => 'undraw_profile.svg',
                 'user_password' => md5('12345678'),
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
             ],
             [
                 'role_id' => 1,
@@ -35,7 +34,7 @@ class UsersTableSeeder extends Seeder
                 'user_foto' => 'undraw_profile.svg',
                 'user_password' => md5('12345678'),
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
             ],
             [
                 'role_id' => 2,
@@ -45,7 +44,7 @@ class UsersTableSeeder extends Seeder
                 'user_foto' => 'undraw_profile.svg',
                 'user_password' => md5('12345678'),
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
             ],
             [
                 'role_id' => 3,
@@ -55,7 +54,7 @@ class UsersTableSeeder extends Seeder
                 'user_foto' => 'undraw_profile.svg',
                 'user_password' => md5('12345678'),
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
             ],
         ]);
     }

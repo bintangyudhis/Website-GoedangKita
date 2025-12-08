@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use Carbon\Carbon;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -27,8 +26,8 @@ class MenuTableSeeder extends Seeder
                     'menu_sort' => 1,
                     'menu_type' => 1,
                     'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-                    'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
-                ]
+                    'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                ],
             ]
         );
     }
