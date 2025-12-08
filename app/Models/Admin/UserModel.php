@@ -8,8 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class UserModel extends Model
 {
     use HasFactory;
-    protected $table = "tbl_user";
+
+    protected $table = 'tbl_user';
+
     protected $primaryKey = 'user_id';
+
     protected $fillable = [
         'role_id',
         'user_nama',
