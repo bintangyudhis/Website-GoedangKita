@@ -24,4 +24,3 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // $request->user() akan mengembalikan data user yang sedang login (berdasarkan token / session Sanctum).
 
 // Output-nya biasanya JSON berisi data user (misalnya id, name, email, dll).
-
