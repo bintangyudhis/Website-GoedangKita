@@ -1,134 +1,165 @@
-@extends('Master.Layouts.app', ['title' => $title])
+@extends('Master.Layouts.app', ['title' => $title]) {{-- Menggunakan layout utama dan mengirim title --}}
 
-@section('content')
-<!-- PAGE-HEADER -->
-<div class="page-header">
-    <h1 class="page-title">Laporan Barang Keluar</h1>
-    <div>
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item text-gray">Laporan</li>
-            <li class="breadcrumb-item active" aria-current="page">Barang Keluar</li>
+@section('content') {{-- Awal section content --}}
+
+<!-- PAGE-HEADER --> <!-- Header halaman -->
+<div class="page-header"> <!-- Container header -->
+    <h1 class="page-title">Laporan Barang Keluar</h1> <!-- Judul halaman -->
+    <div> <!-- Container breadcrumb -->
+        <ol class="breadcrumb"> <!-- Breadcrumb navigasi -->
+            <li class="breadcrumb-item text-gray">Laporan</li> <!-- Breadcrumb level 1 -->
+            <li class="breadcrumb-item active" aria-current="page">Barang Keluar</li> <!-- Breadcrumb aktif -->
         </ol>
     </div>
 </div>
-<!-- PAGE-HEADER END -->
+<!-- PAGE-HEADER END --> <!-- Akhir header -->
 
-<!-- ROW -->
+<!-- ROW --> <!-- Row utama untuk card laporan -->
 <div class="row row-sm">
-    <div class="col-lg-12">
-        <div class="card">
-            <div class="card-header justify-content-between">
-                <h3 class="card-title">Data</h3>
+    <div class="col-lg-12"> <!-- Kolom full -->
+        <div class="card"> <!-- Card container -->
+            <div class="card-header justify-content-between"> <!-- Header card -->
+                <h3 class="card-title">Data</h3> <!-- Judul card -->
             </div>
-            <div class="card-body">
-                <div class="row mb-4">
+
+            <div class="card-body"> <!-- Body card -->
+
+                <div class="row mb-4"> <!-- Baris filter tanggal + tombol -->
                     <div class="col-12">
                         <label for="" class="fw-bold">Filter Tanggal</label>
+                        <!-- Judul filter -->
                     </div>
+
                     <div class="col-md-3">
                         <div class="form-group">
                             <input type="text" name="tglawal" class="form-control datepicker-date" placeholder="Tanggal Awal">
+                            <!-- Input tanggal awal (datepicker) -->
                         </div>
                     </div>
+
                     <div class="col-md-3">
                         <div class="form-group">
                             <input type="text" name="tglakhir" class="form-control datepicker-date" placeholder="Tanggal Akhir">
+                            <!-- Input tanggal akhir (datepicker) -->
                         </div>
                     </div>
+
                     <div class="col-md-6">
-                        <button class="btn btn-success-light" onclick="filter()"><i class="fe fe-filter"></i> Filter</button>
-                        <button class="btn btn-secondary-light" onclick="reset()"><i class="fe fe-refresh-ccw"></i> Reset</button>
-                        <button class="btn btn-primary-light" onclick="print()"><i class="fe fe-printer"></i> Print</button>
-                        <button class="btn btn-danger-light" onclick="pdf()"><i class="fa fa-file-pdf-o"></i> PDF</button>
+                        <!-- Kumpulan tombol aksi -->
+                        <button class="btn btn-success-light" onclick="filter()">
+                            <!-- Tombol filter: reload datatable sesuai tanggal -->
+                            <i class="fe fe-filter"></i> Filter
+                        </button>
+
+                        <button class="btn btn-secondary-light" onclick="reset()">
+                            <!-- Tombol reset: kosongkan input + reload datatable -->
+                            <i class="fe fe-refresh-ccw"></i> Reset
+                        </button>
+
+                        <button class="btn btn-primary-light" onclick="print()">
+                            <!-- Tombol print: buka halaman print (tab baru) -->
+                            <i class="fe fe-printer"></i> Print
+                        </button>
+
+                        <button class="btn btn-danger-light" onclick="pdf()">
+                            <!-- Tombol PDF: export pdf (tab baru) -->
+                            <i class="fa fa-file-pdf-o"></i> PDF
+                        </button>
                     </div>
                 </div>
-                <div class="table-responsive">
+
+                <div class="table-responsive"> <!-- Tabel responsif -->
                     <table id="table-1" class="table table-bordered text-nowrap border-bottom dataTable no-footer dtr-inline collapsed">
+                        <!-- Tabel DataTables laporan -->
                         <thead>
-                            <th class="border-bottom-0" width="1%">No</th>
-                            <th class="border-bottom-0">Tanggal Keluar</th>
-                            <th class="border-bottom-0">Kode Barang Keluar</th>
-                            <th class="border-bottom-0">Kode Barang</th>
-                            <th class="border-bottom-0">Barang</th>
-                            <th class="border-bottom-0">Jumlah Keluar</th>
-                            <th class="border-bottom-0">Tujuan</th>
+                            <th class="border-bottom-0" width="1%">No</th> <!-- Nomor urut -->
+                            <th class="border-bottom-0">Tanggal Keluar</th> <!-- Tanggal transaksi keluar -->
+                            <th class="border-bottom-0">Kode Barang Keluar</th> <!-- Kode BK -->
+                            <th class="border-bottom-0">Kode Barang</th> <!-- Kode barang -->
+                            <th class="border-bottom-0">Barang</th> <!-- Nama barang -->
+                            <th class="border-bottom-0">Jumlah Keluar</th> <!-- Jumlah keluar -->
+                            <th class="border-bottom-0">Tujuan</th> <!-- Tujuan pengeluaran -->
                         </thead>
-                        <tbody></tbody>
+                        <tbody></tbody> <!-- Body kosong, diisi lewat AJAX -->
                     </table>
                 </div>
+
             </div>
         </div>
     </div>
 </div>
-<!-- END ROW -->
+<!-- END ROW --> <!-- Akhir row -->
 
-@endsection
+@endsection {{-- Akhir section content --}}
 
-@section('scripts')
-<script>
-    $.ajaxSetup({
+@section('scripts') {{-- Section scripts tambahan --}}
+<script> // Awal script JS halaman laporan
+
+    $.ajaxSetup({ // Set header CSRF untuk semua AJAX jQuery
         headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Token CSRF Laravel
         }
     });
 
-    $(document).ready(function() {
-        getData();
+    $(document).ready(function() { // Saat halaman siap
+        getData(); // Panggil fungsi inisialisasi DataTables
     });
 
-    function getData() {
-        //datatables
-        table = $('#table-1').DataTable({
+    function getData() { // Inisialisasi DataTables laporan
+        //datatables // Penanda: DataTables
 
-            "processing": true,
-            "serverSide": true,
-            "info": true,
-            "order": [],
-            "scrollX": true,
-            "stateSave": true,
-            "lengthMenu": [
+        table = $('#table-1').DataTable({ // Buat DataTables pada tabel #table-1
+
+            "processing": true, // Tampilkan loading "processing"
+            "serverSide": true, // Mode server-side (paging/search di server)
+            "info": true, // Tampilkan info jumlah data
+            "order": [], // Tidak set default order
+            "scrollX": true, // Aktifkan scroll horizontal
+            "stateSave": true, // Simpan state tabel (page, filter, dll)
+            "lengthMenu": [ // Pilihan jumlah data per halaman
                 [5, 10, 25, 50, 100, -1],
-                [5, 10, 25, 50, 100, 'Semua']
+                [5, 10, 25, 50, 100, 'Semua'] // -1 artinya tampilkan semua data
             ],
-            "pageLength": 10,
+            "pageLength": 10, // Default 10 baris per halaman
 
-            lengthChange: true,
+            lengthChange: true, // User boleh ubah jumlah baris per halaman
 
-            "ajax": {
-                "url": "{{ route('lap-bk.getlap-bk') }}",
-                "data": function(d) {
-                    d.tglawal = $('input[name="tglawal"]').val();
-                    d.tglakhir = $('input[name="tglakhir"]').val();
+            "ajax": { // Pengambilan data via AJAX
+                "url": "{{ route('lap-bk.getlap-bk') }}", // Endpoint data laporan barang keluar
+                "data": function(d) { // Data tambahan yang dikirim ke server
+                    d.tglawal = $('input[name="tglawal"]').val(); // Kirim tanggal awal
+                    d.tglakhir = $('input[name="tglakhir"]').val(); // Kirim tanggal akhir
                 }
             },
 
-            "columns": [{
-                    data: 'DT_RowIndex',
+            "columns": [ // Mapping kolom DataTables ke field JSON
+                {
+                    data: 'DT_RowIndex', // Nomor urut otomatis (umumnya dari Yajra)
                     name: 'DT_RowIndex',
-                    searchable: false
+                    searchable: false // Tidak bisa dicari
                 },
                 {
-                    data: 'tgl',
+                    data: 'tgl', // Tanggal keluar versi display
                     name: 'bk_tanggal',
                 },
                 {
-                    data: 'bk_kode',
+                    data: 'bk_kode', // Kode barang keluar
                     name: 'bk_kode',
                 },
                 {
-                    data: 'barang_kode',
+                    data: 'barang_kode', // Kode barang
                     name: 'barang_kode',
                 },
                 {
-                    data: 'barang',
+                    data: 'barang', // Nama barang versi display
                     name: 'barang_nama',
                 },
                 {
-                    data: 'bk_jumlah',
+                    data: 'bk_jumlah', // Jumlah keluar
                     name: 'bk_jumlah',
                 },
                 {
-                    data: 'tujuan',
+                    data: 'tujuan', // Tujuan versi display
                     name: 'bk_tujuan',
                 },
             ],
@@ -136,68 +167,67 @@
         });
     }
 
-    function filter() {
-        var tglawal = $('input[name="tglawal"]').val();
-        var tglakhir = $('input[name="tglakhir"]').val();
-        if (tglawal != '' && tglakhir != '') {
-            table.ajax.reload(null, false);
-        } else {
-            validasi("Isi dulu Form Filter Tanggal!", 'warning');
+    function filter() { // Fungsi untuk menjalankan filter tanggal
+        var tglawal = $('input[name="tglawal"]').val(); // Ambil input tanggal awal
+        var tglakhir = $('input[name="tglakhir"]').val(); // Ambil input tanggal akhir
+
+        if (tglawal != '' && tglakhir != '') { // Jika keduanya terisi
+            table.ajax.reload(null, false); // Reload tabel sesuai filter tanpa reset halaman
+        } else { // Jika ada yang kosong
+            validasi("Isi dulu Form Filter Tanggal!", 'warning'); // Tampilkan warning
         }
-
     }
 
-    function reset() {
-        $('input[name="tglawal"]').val('');
-        $('input[name="tglakhir"]').val('');
-        table.ajax.reload(null, false);
+    function reset() { // Fungsi reset filter
+        $('input[name="tglawal"]').val(''); // Kosongkan tanggal awal
+        $('input[name="tglakhir"]').val(''); // Kosongkan tanggal akhir
+        table.ajax.reload(null, false); // Reload tabel (kembali semua data)
     }
 
-    function print() {
-        var tglawal = $('input[name="tglawal"]').val();
-        var tglakhir = $('input[name="tglakhir"]').val();
-        if (tglawal != '' && tglakhir != '') {
+    function print() { // Fungsi print laporan
+        var tglawal = $('input[name="tglawal"]').val(); // Ambil tanggal awal
+        var tglakhir = $('input[name="tglakhir"]').val(); // Ambil tanggal akhir
+
+        if (tglawal != '' && tglakhir != '') { // Jika filter tanggal terisi
             window.open(
                 "{{route('lap-bk.print')}}?tglawal=" + tglawal + "&tglakhir=" + tglakhir,
                 '_blank'
             );
-        } else {
+            // Buka halaman print dengan parameter tglawal & tglakhir
+        } else { // Jika filter kosong, konfirmasi print semua data
             swal({
-                title: "Yakin Print Semua Data?",
-                type: "warning",
+                title: "Yakin Print Semua Data?", // Pertanyaan konfirmasi
+                type: "warning", // Tipe warning
                 buttons: true,
                 dangerMode: true,
-                confirmButtonText: "Yakin",
-                cancelButtonText: 'Batal',
-                showCancelButton: true,
-                showConfirmButton: true,
-                closeOnConfirm: false,
-                confirmButtonColor: '#09ad95',
-            }, function(value) {
-                if (value == true) {
-                    window.open(
-                        "{{route('lap-bk.print')}}",
-                        '_blank'
-                    );
-                    swal.close();
+                confirmButtonText: "Yakin", // Tombol konfirmasi
+                cancelButtonText: 'Batal', // Tombol batal
+                showCancelButton: true, // Tampilkan tombol cancel
+                showConfirmButton: true, // Tampilkan tombol confirm
+                closeOnConfirm: false, // Jangan tutup otomatis sebelum callback
+                confirmButtonColor: '#09ad95', // Warna tombol confirm
+            }, function(value) { // Callback hasil konfirmasi
+                if (value == true) { // Jika user setuju
+                    window.open("{{route('lap-bk.print')}}", '_blank'); // Print semua data
+                    swal.close(); // Tutup swal
                 }
             });
-
         }
-
     }
 
-    function pdf() {
-        var tglawal = $('input[name="tglawal"]').val();
-        var tglakhir = $('input[name="tglakhir"]').val();
-        if (tglawal != '' && tglakhir != '') {
+    function pdf() { // Fungsi export PDF laporan
+        var tglawal = $('input[name="tglawal"]').val(); // Ambil tanggal awal
+        var tglakhir = $('input[name="tglakhir"]').val(); // Ambil tanggal akhir
+
+        if (tglawal != '' && tglakhir != '') { // Jika filter tanggal terisi
             window.open(
                 "{{route('lap-bk.pdf')}}?tglawal=" + tglawal + "&tglakhir=" + tglakhir,
                 '_blank'
             );
-        } else {
+            // Buka PDF dengan parameter filter tanggal
+        } else { // Jika filter kosong, konfirmasi export semua data
             swal({
-                title: "Yakin export PDF Semua Data?",
+                title: "Yakin export PDF Semua Data?", // Pertanyaan konfirmasi
                 type: "warning",
                 buttons: true,
                 dangerMode: true,
@@ -208,25 +238,21 @@
                 closeOnConfirm: false,
                 confirmButtonColor: '#09ad95',
             }, function(value) {
-                if (value == true) {
-                    window.open(
-                        "{{route('lap-bk.pdf')}}",
-                        '_blank'
-                    );
-                    swal.close();
+                if (value == true) { // Jika user setuju
+                    window.open("{{route('lap-bk.pdf')}}", '_blank'); // Export semua data
+                    swal.close(); // Tutup swal
                 }
             });
-
         }
-
     }
 
-    function validasi(judul, status) {
+    function validasi(judul, status) { // Helper menampilkan SweetAlert sederhana
         swal({
-            title: judul,
-            type: status,
-            confirmButtonText: "Iya."
+            title: judul, // Judul/pesan
+            type: status, // Status alert
+            confirmButtonText: "Iya." // Tombol OK
         });
     }
+
 </script>
-@endsection
+@endsection {{-- Akhir section scripts --}}
