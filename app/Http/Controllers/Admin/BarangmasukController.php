@@ -88,7 +88,7 @@ class BarangmasukController extends Controller // Mendefinisikan controller Bara
                     $button = ''; // Inisialisasi string HTML tombol action
 
                     if ($hakEdit > 0 && $hakDelete > 0) { // Jika user punya hak edit dan delete
-                        $button .= ' // Menambahkan tombol edit dan hapus
+                        $button .= '
                             <div class="g-2">
                                 <a class="btn modal-effect text-primary btn-sm"
                                 data-bs-effect="effect-super-scaled"

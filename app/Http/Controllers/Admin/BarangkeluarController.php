@@ -91,7 +91,7 @@ class BarangkeluarController extends Controller // Mendefinisikan controller Bar
                         ])->count(); // Hitung hasil (jika > 0 berarti boleh hapus)
 
                     if ($hakEdit > 0 && $hakDelete > 0) { // Jika user punya hak edit dan hak delete
-                        return ' // Return HTML tombol edit dan hapus
+                        return ' 
                         <div class="g-2">
                             <a class="btn modal-effect text-primary btn-sm"
                                 data-bs-effect="effect-super-scaled"

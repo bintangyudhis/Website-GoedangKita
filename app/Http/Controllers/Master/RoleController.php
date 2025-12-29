@@ -45,12 +45,12 @@ class RoleController extends Controller // Mendefinisikan controller Role yang m
 
                     $array = [ // Menyiapkan data role untuk dikirim ke fungsi JS (update/hapus)
                         'role_id'   => $row->role_id, // ID role
-                        'role_title'=> trim($roleTitleSlug ?? ''), // Title role dalam format aman + trim
+                        'role_title' => trim($roleTitleSlug ?? ''), // Title role dalam format aman + trim
                         'role_desc' => trim($roleDescSlug ?? ''), // Desc role dalam format aman + trim
                     ]; // Menutup array role
 
                     if ($row->role_id != 1) { // Jika bukan role Super Admin (id 1), izinkan edit dan hapus
-                        return ' // Mengembalikan HTML tombol action edit/hapus
+                        return '
                             <div class="g-2">
                                 <a class="btn modal-effect text-primary btn-sm"
                                    data-bs-effect="effect-super-scaled"

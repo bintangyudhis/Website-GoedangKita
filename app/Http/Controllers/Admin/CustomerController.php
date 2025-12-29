@@ -99,7 +99,7 @@ class CustomerController extends Controller // Mendefinisikan controller Custome
                     ->count(); // Hitung hasil (jika > 0 berarti boleh hapus)
 
                 if ($hakEdit > 0 && $hakDelete > 0) { // Jika user punya hak edit dan hapus
-                    $button .= ' // Menambahkan tombol edit dan hapus
+                    $button .= ' 
                         <div class="g-2">
                         <a class="btn modal-effect text-primary btn-sm" data-bs-effect="effect-super-scaled"
                            data-bs-toggle="modal" href="#Umodaldemo8" data-bs-toggle="tooltip"
