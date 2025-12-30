@@ -75,7 +75,7 @@ class JenisBarangController extends Controller // Mendefinisikan controller Jeni
 
                 $array = [ // Menyiapkan data jenis barang untuk dikirim ke fungsi JS update/hapus
                     'jenisbarang_id'  => $row->jenisbarang_id, // ID jenis barang
-                    'jenisbarang_nama'=> $namaSlug, // Nama jenis barang dalam bentuk slug
+                    'jenisbarang_nama' => $namaSlug, // Nama jenis barang dalam bentuk slug
                     'jenisbarang_ket' => $ketSlug, // Keterangan jenis barang dalam bentuk slug
                 ]; // Menutup array data jenis barang
 
@@ -97,7 +97,7 @@ class JenisBarangController extends Controller // Mendefinisikan controller Jeni
                     ->count(); // Hitung hasil (jika > 0 berarti boleh hapus)
 
                 if ($hakEdit > 0 && $hakDelete > 0) { // Jika user punya hak edit dan hapus
-                    $button .= ' // Menambahkan tombol edit dan hapus
+                    $button .= '
                         <div class="g-2">
                         <a class="btn modal-effect text-primary btn-sm" data-bs-effect="effect-super-scaled" data-bs-toggle="modal" href="#Umodaldemo8" data-bs-toggle="tooltip" data-bs-original-title="Edit" onclick=update(' . json_encode($array) . ')><span class="fe fe-edit text-success fs-14"></span></a>
                         <a class="btn modal-effect text-danger btn-sm" data-bs-effect="effect-super-scaled" data-bs-toggle="modal" href="#Hmodaldemo8" onclick=hapus(' . json_encode($array) . ')><span class="fe fe-trash-2 fs-14"></span></a>

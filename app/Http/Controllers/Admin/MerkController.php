@@ -75,7 +75,7 @@ class MerkController extends Controller // Mendefinisikan controller Merk yang m
                 $array = [ // Menyiapkan data merk untuk dikirim ke fungsi JS update/hapus
                     'merk_id'        => $row->merk_id, // ID merk
                     'merk_nama'      => $namaSlug, // Nama merk dalam bentuk slug
-                    'merk_keterangan'=> $ketSlug, // Keterangan merk dalam bentuk slug
+                    'merk_keterangan' => $ketSlug, // Keterangan merk dalam bentuk slug
                 ]; // Menutup array data merk
 
                 $button  = ''; // Inisialisasi variabel string HTML tombol
@@ -96,7 +96,7 @@ class MerkController extends Controller // Mendefinisikan controller Merk yang m
                     ->count(); // Hitung hasil (jika > 0 berarti boleh hapus)
 
                 if ($hakEdit > 0 && $hakDelete > 0) { // Jika user punya hak edit dan hapus
-                    $button .= ' // Menambahkan tombol edit dan hapus
+                    $button .= '
                         <div class="g-2">
                         <a class="btn modal-effect text-primary btn-sm" data-bs-effect="effect-super-scaled"
                            data-bs-toggle="modal" href="#Umodaldemo8" data-bs-toggle="tooltip"
